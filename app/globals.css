@@ -24,3 +24,223 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+:root {
+  --color-bg: #f3f0f8;
+  --color-ink: #2e2a3d;
+  --color-paper: #fffdf9;
+  --color-capsule-pink: #f7a8c4;
+  --color-capsule-blue: #b8d4f5;
+  --color-accent: #ff6fa5;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: 'Noto Sans TC', sans-serif;
+}
+
+.page-shell {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  overflow: hidden;
+}
+
+.photo-backdrop {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(160deg, rgba(243, 240, 248, 0.85), rgba(184, 212, 245, 0.55)),
+    url('/background.jpg') center/cover no-repeat;
+  z-index: 0;
+}
+
+.paper-note {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 380px;
+  background: var(--color-paper);
+  border-radius: 20px;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: 0 20px 40px rgba(46, 42, 61, 0.15);
+}
+
+.note-title {
+  font-family: 'Huninn', sans-serif;
+  font-size: 1.6rem;
+  color: var(--color-ink);
+}
+
+.note-content {
+  white-space: pre-wrap;
+  line-height: 1.7;
+}
+
+.note-textarea,
+.note-input {
+  border: 1.5px solid #e3dcef;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-family: 'Huninn', sans-serif;
+  background: #fffefb;
+}
+
+.note-label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: #6b6478;
+}
+
+.note-button {
+  margin-top: 4px;
+  background: var(--color-accent);
+  color: white;
+  border: none;
+  border-radius: 999px;
+  padding: 12px;
+  font-family: 'Huninn', sans-serif;
+  font-size: 1.05rem;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.note-button:active {
+  transform: scale(0.97);
+}
+
+.capsule-scene {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.capsule-hint {
+  font-size: 0.9rem;
+  color: #6b6478;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pop-in {
+  0% { transform: scale(0.3); opacity: 0; }
+  60% { transform: scale(1.08); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+@keyframes suck-in {
+  0% { transform: scale(1) translateY(0); opacity: 1; }
+  100% { transform: scale(0.15) translateY(80px); opacity: 0; }
+}
+
+.gacha {
+  position: relative;
+  width: 250px;
+  height: 250px;
+  cursor: pointer;
+  animation: float 4s ease-in-out infinite;
+}
+
+.gacha-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 52%;
+  background: linear-gradient(160deg, var(--color-capsule-pink), #ffffff 120%);
+  border-radius: 999px 999px 6px 6px;
+  box-shadow:
+    inset -10px -10px 20px rgba(0, 0, 0, 0.06),
+    inset 10px 10px 16px rgba(255, 255, 255, 0.6);
+  transition: transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.7s ease;
+  transform-origin: 10% 100%;
+  z-index: 2;
+}
+
+.gacha-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 52%;
+  background: linear-gradient(200deg, var(--color-capsule-blue), #ffffff 120%);
+  border-radius: 6px 6px 999px 999px;
+  box-shadow: inset -10px 10px 20px rgba(0, 0, 0, 0.06);
+  z-index: 1;
+}
+
+.gacha-shine {
+  position: absolute;
+  top: 14%;
+  left: 20%;
+  width: 30%;
+  height: 16%;
+  background: rgba(255, 255, 255, 0.75);
+  border-radius: 50%;
+  filter: blur(2px);
+  transform: rotate(-25deg);
+  z-index: 3;
+}
+
+.gacha.is-open .gacha-top {
+  transform: translate(-30px, -140px) rotate(-35deg);
+  opacity: 0.85;
+}
+
+.note-suck {
+  animation: suck-in 0.6s ease-in forwards;
+}
+
+.capsule-pop {
+  animation: pop-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.notice-bubble {
+  position: absolute;
+  bottom: -50px;
+  background: var(--color-ink);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  white-space: nowrap;
+  animation: pop-in 0.3s ease;
+}
+@media (max-width: 480px) {
+  .gacha {
+    width: 200px;
+    height: 200px;
+  }
+
+  .paper-note {
+    padding: 22px 18px;
+    max-width: 92vw;
+  }
+
+  .note-title {
+    font-size: 1.35rem;
+  }
+
+  .note-textarea,
+  .note-input {
+    font-size: 16px;
+  }
+
+  .capsule-hint {
+    font-size: 0.85rem;
+  }
+}

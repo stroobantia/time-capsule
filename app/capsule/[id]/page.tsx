@@ -24,7 +24,7 @@ export default async function CapsulePage({
     <main className="max-w-md mx-auto p-6">
       {isOpen ? (
         <>
-          <h1 className="text-2xl font-bold mb-4">你的紙條到期了</h1>
+          <h1 className="text-2xl font-bold mb-4">膠囊可以打開啦</h1>
           <p className="whitespace-pre-wrap border rounded p-4">
             {capsule.content}
           </p>
@@ -33,7 +33,7 @@ export default async function CapsulePage({
         <>
           <h1 className="text-2xl font-bold mb-4">還沒到開啟時間</h1>
           <p>
-            這張紙條要等到{' '}
+            膠囊要等到{' '}
             {new Date(capsule.open_at).toLocaleString('zh-TW')}{' '}
             才能打開,先收藏這個連結,到時候再回來看。
           </p>
