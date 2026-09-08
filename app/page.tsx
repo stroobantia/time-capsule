@@ -139,7 +139,7 @@ export default function Home() {
           <input
             className="note-input"
             type="email"
-            placeholder="你的名字"
+            placeholder="你的信箱"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
