@@ -75,7 +75,13 @@ export default function Home() {
   }, [])
 
   useEffect(() => {
-    const savedId = localStorage.getItem('capsuleId')
+    // 從行事曆提醒裡的連結回來時，網址會帶 ?c=紙條編號
+    const linkId = new URLSearchParams(window.location.search).get('c')
+    if (linkId) {
+      localStorage.setItem('capsuleId', linkId)
+      window.history.replaceState({}, '', '/')
+    }
+    const savedId = linkId ?? localStorage.getItem('capsuleId')
     if (!savedId) {
       setView('form')
       return
@@ -268,9 +274,17 @@ export default function Home() {
             </div>
             <p className="capsule-hint">點一下扭蛋看看</p>
             {view === 'sealed' && (
-              <button className="film-button" onClick={() => setFilmOpen(true)}>
-                {FILM_BUTTON_TEXT}
-              </button>
+              <>
+                <button className="film-button" onClick={() => setFilmOpen(true)}>
+                  {FILM_BUTTON_TEXT}
+                </button>
+                <a
+                  className="film-button calendar-button"
+                  href={`/api/capsules/${capsule?.id}/calendar`}
+                >
+                  加入行事曆提醒
+                </a>
+              </>
             )}
           </>
         )}

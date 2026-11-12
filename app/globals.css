@@ -300,3 +300,15 @@ body {
     font-size: 16px;
   }
 }
+
+a.film-button {
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+}
+
+.calendar-button {
+  background: white;
+  color: var(--color-accent);
+  border: 2px solid var(--color-accent);
+}
