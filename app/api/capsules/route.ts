@@ -1,20 +1,14 @@
 import { supabaseAdmin } from '@/lib/supabase-server'
 import { NextResponse } from 'next/server'
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-
 export async function POST(req: Request) {
-  const { content, email, open_at, shell_color } = await req.json()
+  const { content, open_at, shell_color } = await req.json()
 
-  if (!content || !email || !open_at) {
+  if (!content || !open_at) {
     return NextResponse.json({ error: '缺少欄位' }, { status: 400 })
   }
 
-  if (
-    String(content).length > 2000 ||
-    !EMAIL_RE.test(String(email)) ||
-    Number.isNaN(Date.parse(open_at))
-  ) {
+  if (String(content).length > 2000 || Number.isNaN(Date.parse(open_at))) {
     return NextResponse.json({ error: '格式不正確' }, { status: 400 })
   }
 
@@ -22,7 +16,6 @@ export async function POST(req: Request) {
     .from('capsules')
     .insert({
       content,
-      email,
       open_at,
       shell_color: String(shell_color ?? 'pink').slice(0, 30),
     })

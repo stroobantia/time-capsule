@@ -58,13 +58,13 @@ export default function Home() {
   >('loading')
   const [capsule, setCapsule] = useState<Capsule | null>(null)
   const [content, setContent] = useState('')
-  const [email, setEmail] = useState('')
   const [openAt, setOpenAt] = useState('')
   const [topColor, setTopColor] = useState('pink')
   const [bottomColor, setBottomColor] = useState('blue')
   const [sending, setSending] = useState(false)
   const [notice, setNotice] = useState<string | null>(null)
   const [filmOpen, setFilmOpen] = useState(false)
+  const [calendarHint, setCalendarHint] = useState(false)
   const [photoIndex, setPhotoIndex] = useState(0)
 
   useEffect(() => {
@@ -112,7 +112,6 @@ export default function Home() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         content,
-        email,
         open_at: openIso,
         shell_color: `${topColor}-${bottomColor}`,
       }),
@@ -166,10 +165,10 @@ export default function Home() {
     localStorage.removeItem('capsuleId')
     setCapsule(null)
     setContent('')
-    setEmail('')
     setOpenAt('')
     setTopColor('pink')
     setBottomColor('blue')
+    setCalendarHint(false)
     setView('form')
   }
 
@@ -189,14 +188,6 @@ export default function Home() {
             value={content}
             onChange={(e) => setContent(e.target.value)}
             rows={6}
-            required
-          />
-          <input
-            className="note-input"
-            type="email"
-            placeholder="你的 email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
             required
           />
           <label className="note-label">
@@ -281,9 +272,16 @@ export default function Home() {
                 <a
                   className="film-button calendar-button"
                   href={`/api/capsules/${capsule?.id}/calendar`}
+                  onClick={() => setCalendarHint(true)}
                 >
                   加入行事曆提醒
                 </a>
+                {calendarHint && (
+                  <p className="capsule-hint calendar-hint">
+                    已下載行事曆檔案。請點開它並選「加入」，提醒才會進到你的行事曆。
+                    手機如果沒有自動跳出來，到「下載」裡找 time-capsule.ics。
+                  </p>
+                )}
               </>
             )}
           </>
