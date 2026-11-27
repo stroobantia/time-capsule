@@ -12,7 +12,7 @@ type Capsule = {
 const PHOTOS = ['/background1.jpg', '/background2.jpg', '/background3.jpg']
 
 // 換成你的 YouTube 嵌入網址:https://www.youtube.com/embed/影片ID
-const FILM_URL = 'https://www.youtube.com/embed/YOUR_VIDEO_ID'
+const FILM_URL = 'https://www.youtube.com/embed/c6B7N5KgYVU'
 const FILM_BUTTON_TEXT = '趁等待，看《過氧》'
 
 const COLORS = [
